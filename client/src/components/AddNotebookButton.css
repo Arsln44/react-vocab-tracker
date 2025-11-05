@@ -1,0 +1,36 @@
+:root{
+  --backdrop: rgba(6,12,20,0.44);
+  --surface: #ffffff;
+  --ink: #0f1724;
+  --muted: #475569;
+  --primary-500: #9b77ff;
+  --primary-400: #bfa7ff;
+  --secondary-bg: #f3f6fb;
+  --danger: #ff6b6b;
+  --radius: 12px;
+  --shadow-strong: 0 12px 36px rgba(6,8,30,0.18);
+  --shadow-soft-inset: 0 6px 18px rgba(10,12,30,0.04) inset;
+}
+
+.add-notebook-btn {
+  min-width: 140px;
+  height: 44px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(180deg, var(--primary-500), var(--primary-400));
+  color: #061027;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(155,119,255,0.14);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.add-notebook-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(10,40,70,0.16);
+}
+
+.add-notebook-btn:active {  
+  transform: translateY(-1px);
+}

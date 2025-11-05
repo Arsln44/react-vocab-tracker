@@ -1,0 +1,192 @@
+/* AddNoteModal.css - AddNotebookModal ile tutarlı tema + performans dostu */
+
+/* Tema değişkenleri (AddNotebookModal ile aynı set) */
+:root{
+  --backdrop: rgba(6,12,20,0.44);
+  --surface: #ffffff;
+  --ink: #0f1724;
+  --muted: #475569;
+  --primary-500: #9b77ff;
+  --primary-400: #bfa7ff;
+  --secondary-bg: #f3f6fb;
+  --danger: #ff6b6b;
+  --radius: 12px;
+  --shadow-strong: 0 12px 36px rgba(6,8,30,0.18);
+  --shadow-soft-inset: 0 6px 18px rgba(10,12,30,0.04) inset;
+}
+
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Modal kutusu */
+.add-modal {
+  width: 420px;
+  max-width: calc(100% - 32px);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-strong);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transform: translateY(-6px);
+  transition: transform .16s cubic-bezier(.2,.9,.25,1), opacity .16s;
+  will-change: transform, opacity;
+}
+
+/* Hafif giriş animasyonu */
+.modal-backdrop > .add-modal {
+  animation: modal-pop .16s ease both;
+}
+@keyframes modal-pop {
+  from { transform: translateY(-8px) scale(.997); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Başlık */
+.add-modal header h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.12rem;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+}
+
+/* Label ve açıklama */
+.add-modal form label,
+.row-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* Label metni (üstteki "Kelime Giriniz") */
+.label-text {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* İki input'u yatay hizalamak için kapsayıcı */
+.two-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Input ortak stili (uyumlu) */
+.add-modal input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e9f2;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: linear-gradient(180deg, #fff, #fbfbff);
+  box-shadow: var(--shadow-soft-inset);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+/* İki input arasında kolon karakteri */
+.colon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 0 6px;
+  user-select: none;
+  font-size: 1.05rem;
+}
+
+/* Sol ve sağ input'un genişliklerini ayarla (orantılı) */
+.two-inputs input:first-child {
+  flex: 1 1 60%;
+  min-width: 90px;
+}
+
+.two-inputs input:last-child {
+  flex: 1 1 40%;
+  min-width: 70px;
+}
+
+/* Input focus stili (performans dostu) */
+.add-modal input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 8px 22px rgba(155,119,255,0.08);
+}
+
+/* Yardımcı metin */
+.add-modal .hint {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* Butonlar kapsayıcısı */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Buton temel stili */
+.btn {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform .12s ease;
+  min-width: 92px;
+  will-change: transform;
+}
+
+/* İptal / ikincil */
+.btn.secondary {
+  background: var(--secondary-bg);
+  color: var(--muted);
+  box-shadow: 0 6px 14px rgba(10,12,30,0.04);
+}
+.btn.secondary:hover { transform: translateY(-2px); }
+
+/* Ana buton */
+.btn.primary {
+  background: linear-gradient(180deg, var(--primary-500), var(--primary-400));
+  color: #061027;
+  box-shadow: 0 10px 22px rgba(155,119,255,0.14);
+}
+.btn.primary:hover { transform: translateY(-3px); }
+
+/* Danger (opsiyonel) */
+.btn.danger {
+  background: var(--danger);
+  color: white;
+}
+.btn.danger:hover { transform: translateY(-2px); }
+
+/* Responsive: küçük ekranlarda inputları yatay yerine dikey sırala */
+@media (max-width: 480px) {
+  .add-modal { width: calc(100% - 24px); padding: 14px; border-radius: 10px; }
+  .two-inputs { flex-direction: column; align-items: stretch; gap: 8px; }
+  .two-inputs input:first-child,
+  .two-inputs input:last-child { flex: none; width: 100%; min-width: 0; }
+  .colon { display: none; }
+  .modal-actions { gap: 8px; }
+  .btn { font-size: 0.92rem; padding: 8px 12px; min-width: 80px; }
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .add-modal, .modal-backdrop > .add-modal { animation: none !important; transition: none !important; }
+  .btn, .add-modal input { transition: none !important; }
+}

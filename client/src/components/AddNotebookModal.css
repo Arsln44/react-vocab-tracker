@@ -1,0 +1,154 @@
+/* AddNotebookModal.css - tema uyumlu & performans dostu */
+
+/* Tema değişkenleri (tek yerden kontrol için) */
+:root{
+  --backdrop: rgba(6,12,20,0.44);
+  --surface: #ffffff;
+  --ink: #0f1724;
+  --muted: #475569;
+  --primary-500: #9b77ff;
+  --primary-400: #bfa7ff;
+  --secondary-bg: #f3f6fb;
+  --danger: #ff6b6b;
+  --radius: 12px;
+  --shadow-strong: 0 12px 36px rgba(6,8,30,0.18);
+  --shadow-soft-inset: 0 6px 18px rgba(10,12,30,0.04) inset;
+}
+
+/* Backdrop: hafif karartma, ağır blur kaldırıldı (performans) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  /* ağır blur performans sorununa neden olabiliyordu — kaldırıldı */
+}
+
+/* Modal kutusu: transform/opacity animasyonuna odaklan */
+.add-modal {
+  width: 420px;
+  max-width: calc(100% - 32px);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-strong);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transform: translateY(-6px);
+  transition: transform .16s cubic-bezier(.2,.9,.25,1), opacity .16s;
+  will-change: transform, opacity;
+}
+
+/* Giriş animasyonu (hafif, performans dostu) */
+.modal-backdrop > .add-modal {
+  animation: modal-pop .16s ease both;
+}
+@keyframes modal-pop {
+  from { transform: translateY(-8px) scale(.997); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Başlık */
+.add-modal header h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.12rem;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+}
+
+/* Form etiketleri */
+.add-modal form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* Input alanı - hafif iç gölge inset, ama ağır box-shadow yok */
+.add-modal input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e9f2;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: linear-gradient(180deg, #fff, #fbfbff);
+  box-shadow: var(--shadow-soft-inset);
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+/* Focus: sadece border-color ve hafif gölge (performans dostu) */
+.add-modal input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 8px 22px rgba(155,119,255,0.08);
+}
+
+/* Yardımcı metin */
+.add-modal .hint {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* Aksiyon butonları düzeni */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* Temel buton stili (performans: transform-only hover) */
+.btn {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform .12s ease;
+  min-width: 92px;
+  will-change: transform;
+}
+
+/* İptal / ikincil buton */
+.btn.secondary {
+  background: var(--secondary-bg);
+  color: var(--muted);
+  box-shadow: 0 6px 14px rgba(10,12,30,0.04);
+}
+.btn.secondary:hover { transform: translateY(-2px); }
+
+/* Ana buton: mor gradyan, hafif gölge (gölge transition kaldırıldı) */
+.btn.primary {
+  background: linear-gradient(180deg, var(--primary-500), var(--primary-400));
+  color: #061027;
+  box-shadow: 0 10px 22px rgba(155,119,255,0.14);
+}
+.btn.primary:hover { transform: translateY(-3px); }
+
+/* Danger (isteğe bağlı) */
+.btn.danger {
+  background: var(--danger);
+  color: white;
+}
+.btn.danger:hover { transform: translateY(-2px); }
+
+/* Küçük ekranlar için uyumluluk */
+@media (max-width: 480px) {
+  .add-modal { width: calc(100% - 24px); padding: 14px; border-radius: 10px; }
+  .modal-actions { gap: 8px; }
+  .btn { font-size: 0.92rem; padding: 8px 12px; min-width: 80px; }
+}
+
+/* Eğer kullanıcı hareketi azaltmayı tercih ettiyse (erişilebilirlik) */
+@media (prefers-reduced-motion: reduce) {
+  .add-modal, .modal-backdrop > .add-modal {
+    animation: none !important;
+    transition: none !important;
+  }
+  .btn, .add-modal input { transition: none !important; }
+}

@@ -1,0 +1,211 @@
+:root {
+  --book-w: 720px; /* Düz tasarım için genişletildi */
+  --book-h: 480px; /* Düz tasarım için artırıldı */
+  --backdrop: rgba(6,12,20,0.56);
+  --cover-a: #5a3c33;
+  --cover-b: #402a22;
+  --page-a: #f4efe0;
+  --page-b: #efe6cf;
+  --ink: #0f1724;
+  --muted: #4b5563;
+  --radius: 12px;
+}
+
+/* Backdrop */
+.nvm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Container */
+.nvm-container {
+  width: 100%;
+  max-width: calc(var(--book-w));
+  box-sizing: border-box;
+  position: relative;
+  /* Dikey olarak da ortalanması için */
+  max-height: calc(100vh - 40px);
+}
+
+/* Close button */
+.nvm-close {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  z-index: 220;
+  background: #fff;
+  border: none;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+}
+.nvm-close:hover {
+  color: var(--ink);
+  transform: scale(1.1);
+}
+
+/* YENİ: Düz Defter Stili */
+.nvm-book-flat {
+  width: 100%;
+  height: var(--book-h);
+  max-height: calc(100vh - 80px);
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  background: var(--page-a);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+}
+
+/* Defterin orta çizgisi (Spine) */
+.nvm-book-flat::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: rgba(0,0,0,0.1);
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+  transform: translateX(-1px);
+}
+
+/* Sol ve Sağ Sayfalar */
+.nvm-left-page,
+.nvm-right-page {
+  flex-basis: 50%;
+  box-sizing: border-box;
+  padding: 28px 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sol Sayfa (Dekoratif) */
+.nvm-left-page {
+  background: linear-gradient(to right, var(--page-a), var(--page-b));
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid rgba(0,0,0,0.05);
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
+.nvm-book-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--cover-b);
+}
+.nvm-book-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* Sağ Sayfa (İçerik) */
+.nvm-right-page {
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+/* İçerik Stilleri (Okunabilirlik İyileştirmeleri) */
+.nvm-content-wrapper {
+  flex: 1 1 auto; /* Esnek yükseklik */
+  overflow-y: auto; /* Sadece dikey scroll */
+  padding-right: 10px; /* Kaydırma çubuğu için boşluk */
+  font-size: 16px;
+}
+
+/* Custom scrollbar */
+.nvm-content-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.nvm-content-wrapper::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+.nvm-content-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nvm-content-wrapper ol {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.nvm-word-item {
+  margin: 16px 0;
+  line-height: 1.6;
+}
+
+.nvm-word { 
+  font-weight: 700; 
+  color: #111827;
+  font-size: 17px;
+}
+.nvm-meaning { 
+  color: var(--muted); 
+  font-size: 16px;
+}
+.nvm-empty { 
+  color: #6b7280; 
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Responsive (Mobil Görünüm) */
+@media (max-width: 768px) {
+  :root { 
+    --book-h: 500px; 
+    --book-w: 420px;
+  }
+  
+  /* Mobilde sol (dekoratif) sayfayı gizle */
+  .nvm-left-page {
+    display: none;
+  }
+  
+  /* İçerik sayfasını tam genişlik yap */
+  .nvm-right-page {
+    flex-basis: 100%;
+  }
+  
+  /* Orta çizgiyi gizle */
+  .nvm-book-flat::before {
+    display: none;
+  }
+
+  .nvm-close {
+    top: 5px;
+    right: 5px;
+  }
+  
+  .nvm-container {
+    height: var(--book-h);
+    max-width: var(--book-w);
+  }
+}
+
+/* Reduced motion (Geçişleri kaldır) */
+@media (prefers-reduced-motion: reduce) {
+  .nvm-book-flat, .nvm-close { 
+    transition: none !important; 
+    animation: none !important; 
+  }
+}

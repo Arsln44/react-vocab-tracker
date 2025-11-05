@@ -1,0 +1,27 @@
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  background: #34495e;
+}
+
+.library-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Araları açıldı */
+    padding-top: 10px;
+    padding-right: 200px;
+    padding-bottom: 200px;
+    padding-left: 100px; /* Boşluk azaltıldı, gerekirse artırılabilir */
+}
+
+.add-notebook-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 120;
+}
+

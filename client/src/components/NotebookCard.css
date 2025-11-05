@@ -1,0 +1,154 @@
+.book {
+  /* YENİ: Genişlik ekleniyor. Bu, LibraryPage'deki düzeni sabitleyecektir. */
+  transform-style: preserve-3d;
+  position: relative;
+  width: 150px; /* .front, .back vb. genişliğiyle aynı */
+  height: 225px;
+  cursor: default;
+  outline: none;
+  backface-visibility: visible;
+}
+
+.front, .back, .page1, .page2, .page3, .page4, .page5, .page6 {
+  transform-style: preserve-3d;
+  position: absolute;
+  width: 150px;
+  height: 100%;
+  top: 0; left: 0;
+  transform-origin: left center;
+  transition: transform .5s ease-in-out, box-shadow .35s ease-in-out;
+}
+
+.front, .back {
+  background: #4e342e; 
+  /* YENİ: Doku ve eskitme efekti için birden fazla gölge */
+  box-shadow: 
+    /* Dış kenarlara hafif kabartma */
+    inset 0 0 10px rgba(0, 0, 0, 0.5), 
+    /* Deri üzerinde hafif kırışıklık efekti */
+    inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.front, .page1, .page3, .page5 {
+  border-bottom-right-radius: .5em;
+  border-top-right-radius: .5em;
+}
+
+.back, .page2, .page4, .page6 {
+  border-bottom-right-radius: .5em;
+  border-top-right-radius: .5em;
+}
+
+.page1 { 
+  background: #e7d8b5;
+}
+
+.page2 {
+  background: #e7d8b5;
+}
+
+.page3 {
+  background: #e9dac0;
+}
+
+.page4 {
+  background: #e9dac0;
+}
+
+.page5 {
+  background: #ebddc5;
+}
+
+.page6 {
+  background: #efdfcb;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px; 
+  /* Kapak açıldıktan sonra yavaşça belirmesi için geçiş ekle */
+  transition: opacity 0.3s ease 0.4s, transform .5s ease-in-out, box-shadow .35s ease-in-out;
+}
+
+.book:hover .front {
+  transform: rotateY(-160deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+}
+
+.book:hover .page1 {
+  transform: rotateY(-150deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+}
+
+.book:hover .page2 {
+  transform: rotateY(-30deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+}
+
+.book:hover .page3 {
+  transform: rotateY(-140deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+}
+
+.book:hover .page4 {
+  transform: rotateY(-40deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+
+  opacity: 1;
+  pointer-events: all;
+}
+
+.book:hover .page5 {
+  transform: rotateY(-130deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+}
+
+.book:hover .page6 {
+  transform: rotateY(-50deg) scale(1.1);
+  box-shadow: 0 1em 3em 0 rgba(0, 0, 0, .2);
+}
+
+.book:hover .back {
+  transform: rotateY(-20deg) scale(1.1);
+}
+
+.book-name { 
+  position: absolute;
+  width: 100%;
+  /* İsim sadece kapağın (front) içinde konumlanacak */
+  top: 50%; /* Dikeyde merkeze yakın */
+  transform: translateY(-50%); /* Dikey hizalama */
+  
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  color: #ecf0f1; 
+  overflow: hidden;
+  /* Z-index artık gerekli değil çünkü .front ile birlikte hareket edecek */
+  
+  /* Arkaplanı defter rengiyle aynı yapalım ki daha belirgin olsun */
+  /* background: rgba(0, 0, 0, 0.2); */
+  padding: 10px 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.page6 button {
+    padding: 8px 15px;
+    width: 70%; /* Sayfanın %70 genişliğinde */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #444;
+    font-family: 'Times New Roman';
+    font-size: x-large;
+    line-height: 1.4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    background-color: #efdfcb;
+}
+
+.page6 button:hover {
+    transform: scale(1.05);
+}
